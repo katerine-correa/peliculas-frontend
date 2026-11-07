@@ -2,9 +2,7 @@ import { useEffect, useState, type FormEvent } from 'react';
 import api from '../services/api';
 
 export default function MediaPage() {
-  // ==========================================
-  // 1. ESTADOS Y CONFIGURACIÓN DE ESTILOS
-  // ==========================================
+  // Estados y estilos
   const [mediaList, setMediaList] = useState<any[]>([]);
   const [rels, setRels] = useState({ generos: [], directores: [], productoras: [], tipos: [] });
   const [form, setForm] = useState({ 
@@ -22,9 +20,7 @@ export default function MediaPage() {
 
   const inputStyle = { width: '100%', padding: '10px', borderRadius: '6px', border: '1px solid #4b5563', background: '#111827', color: '#fff', boxSizing: 'border-box' as const };
 
-  // ==========================================
-  // 2. PETICIONES A LA API (LÓGICA CRUD)
-  // ==========================================
+  // CRUD peticiones al api
   const cargarDatos = async () => {
     try {
       const [media, generos, directores, productoras, tipos] = await Promise.all([
@@ -53,7 +49,7 @@ export default function MediaPage() {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     try {
-      // Enviamos ano_estreno sin ñ como lo pide tu controlador, junto con las demás variantes por seguridad
+      // Enviar ano_estreno sin ñ, y url_pelicula sin acento, para evitar problemas con el backend
       const payload = {
         ...form,
         ano_estreno: form.ano_estreno,
@@ -80,9 +76,7 @@ export default function MediaPage() {
     }
   };
 
-  // ==========================================
-  // 3. RENDERIZADO DE LA VISTA (JSX)
-  // ==========================================
+  // renderizado
   return (
     <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
       
